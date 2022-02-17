@@ -1,0 +1,173 @@
+<template>
+  <span class="span" @click="getCurrentLocation()">getCurrentLocation</span>
+  <span class="span" @click="startContinuousLocation()">startContinuousLocation</span>
+  <span class="span" @click="stopContinuousLocation()">stopContinuousLocation</span>
+  <span class="span" @click="getDeviceId()">getDeviceId</span>
+  <span class="span" @click="popWindow()">popWindow</span>
+  <span class="span" @click="pushWindow()">pushWindow</span>
+  <span class="span" @click="setClipboard()">setClipboard</span>
+  <span class="span" @click="getSystemInfo()">getSystemInfo</span>
+  <span class="span" @click="setGestureBack()">setGestureBack</span>
+  <span class="span" @click="hideTopBar()">hideTopBar</span>
+  <span class="span" @click="tradePay()">tradePay</span>
+  <span class="span" @click="setTitle()">setTitle</span>
+  <span class="span" @click="getAddressAllData()">getAddressAllData</span>
+</template>
+
+<script>
+import JSBridge from "@/utils/EasyJSBridge.js";
+// 下面的方法名需要跟native出交互文档
+JSBridge.bridgeNameList = {
+  getCurrentLocation: {
+    JsCallApp: "getCurrentLocation",
+    AppCallJs: "setCurrentLocation",
+  },
+  startContinuousLocation: {
+    JsCallApp: "startContinuousLocation",
+    AppCallJs: "setStartContinuousLocation",
+  },
+  stopContinuousLocation: {
+    JsCallApp: "stopContinuousLocation",
+    AppCallJs: "setStopContinuousLocation",
+  },
+  getDeviceId: {
+    JsCallApp: "getDeviceId",
+    AppCallJs: "setDeviceId",
+  },
+  setTitle: {
+    JsCallApp: "setTitle",
+  },
+  setClipboard: {
+    JsCallApp: "setClipboard",
+  },
+  popWindow: {
+    JsCallApp: "popWindow",
+  },
+  pushWindow: {
+    JsCallApp: "pushWindow",
+  },
+  getSystemInfo: {
+    JsCallApp: "getSystemInfo",
+    AppCallJs: "setSystemInfo",
+  },
+  setGestureBack: {
+    JsCallApp: "setGestureBack",
+  },
+  hideTopBar: {
+    JsCallApp: "hideTopBar",
+  },
+  tradePay: {
+    JsCallApp: "tradePay",
+    AppCallJs: "setTradePay",
+  },
+};
+
+JSBridge.ANDROIDVERSION = 2
+export default {
+  name: "demo",
+  components: {},
+  data() {
+    return {};
+  },
+  mounted() {},
+  methods: {
+    getCurrentLocation() {
+      console.log("**************getCurrentLocation********ok*********");
+      JSBridge.callfn("getCurrentLocation", {}, (result) => {
+        console.log(result);
+      });
+    },
+
+    startContinuousLocation() {
+      console.log("**************startContinuousLocation*********ok********");
+      JSBridge.callfn(
+        "startContinuousLocation",
+        { callbackInterval: 5000 },
+        (result) => {
+          console.log(result);
+        }
+      );
+    },
+
+    stopContinuousLocation() {
+      console.log("**************stopContinuousLocation*******ok**********");
+      JSBridge.callfn("stopContinuousLocation", () => {
+        console.log("停止持续定位");
+      });
+    },
+
+    getDeviceId() {
+      console.log("**************getDeviceId***********ok******");
+      JSBridge.callfn("getDeviceId", function (deviceId) {
+        console.log("[设备号]", deviceId);
+      });
+    },
+
+    popWindow() {
+      console.log("**************popWindow***********ok******");
+      JSBridge.callfn("popWindow");
+    },
+
+    pushWindow() {
+      console.log("**************pushWindow*************ok****");
+      JSBridge.callfn("pushWindow", {
+        url: "http://wap.amap.com",
+        param: { defaultTitle: "⾼德地图" },
+      });
+    },
+
+    setClipboard() {
+      console.log("**************setClipboard************ok*****");
+      JSBridge.callfn("setClipboard", { text: "求救sos" });
+    },
+
+    getSystemInfo() {
+      console.log("**************getSystemInfo**********ok*******");
+      JSBridge.callfn("getSystemInfo", (result) => {
+        console.log(result);
+      });
+    },
+
+    setGestureBack() {
+      console.log("**************setGestureBack***********ok******");
+      JSBridge.callfn("setGestureBack", { val: false });
+    },
+
+    hideTopBar() {
+      console.log("**************hideTopBar***********ok******");
+      JSBridge.callfn("hideTopBar", (result) => {
+        console.log(result);
+      });
+    },
+
+    tradePay() {
+      console.log("**************tradePay***********ok******");
+      JSBridge.callfn("tradePay", { orderStr: "xxx" }, (result) => {
+        console.log(result);
+      });
+    },
+
+    setTitle() {
+      console.log("**************setTitle************ok*****");
+      JSBridge.callfn("setTitle", { title: "个⼈中⼼" });
+    },
+
+    getAddressAllData() {
+      JSBridge.callfn("getAddressAllData", function (ret) {
+        console.log(ret);
+      });
+    },
+  },
+};
+</script>
+
+<style lang="less" scoped>
+.span {
+  width: 200px;
+  text-align: center;
+  line-height: 50px;
+  margin: 10px auto;
+  display: block;
+  background: #fafafa;
+}
+</style>
