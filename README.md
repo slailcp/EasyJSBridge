@@ -3,7 +3,7 @@
 
 # 用法
  ```js
-import jsBridge from 'EasyJSBridge';
+import jsBridge from 'easy-js-bridge';
 
 jsBridge.bridgeNameList = {
   // 自定义的映射名,方便后面调用
